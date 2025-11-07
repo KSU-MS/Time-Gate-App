@@ -1,7 +1,8 @@
 import customtkinter
 import serial
 import serial.tools.list_ports
-import time
+global c
+c = 1
 global cancel
 cancel = False
 #checking what ports are available
@@ -14,7 +15,7 @@ for port in ports:
 #Read COM Port Button logic
 def button1_callback():
     print("button 1 was pressed")
-    COMLable.configure(text="")
+    #COMLable.configure(text="")
     comPorts = ["Select Your Port"]
     for port in ports:
         currentText = COMLable.cget("text")
@@ -23,6 +24,7 @@ def button1_callback():
         comPorts.append(str(port.device))
         #print(comPorts) #Debug
     comSelectionBox.configure(values = comPorts)
+
 
 def selectPort(choice):
     global selectedPort
@@ -132,12 +134,15 @@ comSelectionBox = customtkinter.CTkComboBox(tab_1, values=comPorts, command= sel
 comSelectionBox.pack(pady=10)
 
 #COM Port Selector Creation
-COMLable = customtkinter.CTkLabel(tab_1, text="").pack(pady=10)
+COMLable = customtkinter.CTkLabel(tab_1, text="")
+COMLable.pack(pady=10)
 
 #Readout Buttons
-button2 = customtkinter.CTkButton(tab_2, text="Start", command=start_button).pack(pady=10)
+button2 = customtkinter.CTkButton(tab_2, text="Start", command=start_button)
+button2.pack(pady=10)
 
-button3 = customtkinter.CTkButton(tab_2, text="Stop", command=cancel_button).pack(pady=10)
+button3 = customtkinter.CTkButton(tab_2, text="Stop", command=cancel_button)
+button3.pack(pady=10)
 
 #Tab 2 readout
 COMLable1 = customtkinter.CTkLabel(tab_2, font=("arial", 30, "bold"), text="Readout")
@@ -146,7 +151,8 @@ COMLable1.pack(pady=1)
 COMLable2 = customtkinter.CTkLabel(tab_2, font=("arial", 30, "bold"), text="")
 COMLable2.pack(pady = 10)
 
-button4 = customtkinter.CTkButton(tab_2, text="Copy to clipboard", command=clipboard_button_callback).pack(pady=10)
+button4 = customtkinter.CTkButton(tab_2, text="Copy to clipboard", command=clipboard_button_callback)
+button4.pack(pady=10)
 
 #COMLable2 = customtkinter.CTkLabel(tab_2, text="")
 #COMLable2.pack(pady = 10)
