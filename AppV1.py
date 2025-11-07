@@ -30,7 +30,7 @@ def selectPort(choice):
     #print(selectedPort) #Debug
     return
 
-#Button 1 (IM PRETTY SURE THIS DEF CAN BE DELEATED BUT I WILL LEAVE UNTIL AFTER FURTHER TESTING)
+#Button 1 (IM PRETTY SURE THIS DEF CAN BE DELETED BUT I WILL LEAVE UNTIL AFTER FURTHER TESTING)
 def loop_1():
     mainApp.counter += 1
     print("Hello World")
