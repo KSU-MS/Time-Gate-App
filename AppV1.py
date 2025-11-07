@@ -2,8 +2,6 @@ import customtkinter
 import serial
 import serial.tools.list_ports
 import time
-global c
-c = 1
 global cancel
 cancel = False
 #checking what ports are available
@@ -32,7 +30,7 @@ def selectPort(choice):
     #print(selectedPort) #Debug
     return
 
-#Button 2 (IM PRETTY SURE THIS DEF CAN BE DELEATED BUT I WILL LEAVE UNTIL AFTER FURTHER TESTING)
+#Button 1 (IM PRETTY SURE THIS DEF CAN BE DELEATED BUT I WILL LEAVE UNTIL AFTER FURTHER TESTING)
 def loop_1():
     mainApp.counter += 1
     print("Hello World")
@@ -62,7 +60,6 @@ def loopy1():
             if serial_data:  # Only process if data is received
                 print(f"Received: {serial_data}")
                 COMLable2.configure(text=serial_data)
-                
         else:
             print("Failed to open serial port.")
 
@@ -76,24 +73,24 @@ def loopy1():
             #print("Serial port closed.")
     if cancel != True:
         mainApp.after(3, loopy2)
-
-    #print("Hello")
     
 def loopy2():
     global ser
     global cancel
     mainApp.after(3, loopy1)
 
-#Button 3
+#Button 2
 def start_button():
     global cancel
     cancel = False
     mainApp.after(3, loopy1)
 
+#Button 3
 def cancel_button():
     global cancel
     cancel = True
 
+#Button 4
 def clipboard_button_callback():
     mainApp.clipboard_clear()
     mainApp.clipboard_append(serial_data)
@@ -142,7 +139,6 @@ button2 = customtkinter.CTkButton(tab_2, text="Start", command=start_button).pac
 
 button3 = customtkinter.CTkButton(tab_2, text="Stop", command=cancel_button).pack(pady=10)
 
-
 #Tab 2 readout
 COMLable1 = customtkinter.CTkLabel(tab_2, font=("arial", 30, "bold"), text="Readout")
 COMLable1.pack(pady=1)
@@ -150,9 +146,7 @@ COMLable1.pack(pady=1)
 COMLable2 = customtkinter.CTkLabel(tab_2, font=("arial", 30, "bold"), text="")
 COMLable2.pack(pady = 10)
 
-
 button4 = customtkinter.CTkButton(tab_2, text="Copy to clipboard", command=clipboard_button_callback).pack(pady=10)
-
 
 #COMLable2 = customtkinter.CTkLabel(tab_2, text="")
 #COMLable2.pack(pady = 10)
