@@ -46,38 +46,31 @@ def loop_1():
 
 #Loops
 def loopy1(): 
-    ser = serial.Serial(
-    port=selectedPort,
-    baudrate=9600,  
-    bytesize=serial.SEVENBITS,
-    parity=serial.PARITY_NONE,
-    stopbits=serial.STOPBITS_ONE,
-    timeout=1)  # Timeout in seconds. None means wait forever.
     try:
         if ser.is_open:
             global serial_data
-            print("Serial port opened successfully.")
+            #print("Serial port opened successfully.")
             serial_data = ser.read(size=8)#.decode('utf-8').strip()
 
             if serial_data:  # Only process if data is received
                 print(f"Received: {serial_data}")
                 COMLable2.configure(text=serial_data)
         else:
-            print("Failed to open serial port.")
+            print("Failed to open serial port or timing gates have been stopped.")
 
     except serial.SerialException as e:
         print(f"Serial port error: {e}")
     except KeyboardInterrupt:
         print("Program terminated by user.")
     finally:
-        if ser.is_open:
-            ser.close()
+        next
+        #if ser.is_open:
+            #ser.close()
             #print("Serial port closed.")
     if cancel != True:
         mainApp.after(3, loopy2)
     
 def loopy2():
-    global ser
     global cancel
     mainApp.after(3, loopy1)
 
@@ -85,12 +78,22 @@ def loopy2():
 def start_button():
     global cancel
     cancel = False
+    global ser
+    ser = serial.Serial(
+    port=selectedPort,
+    baudrate=9600,  
+    bytesize=serial.SEVENBITS,
+    parity=serial.PARITY_NONE,
+    stopbits=serial.STOPBITS_ONE,
+    timeout=1)  # Timeout in seconds. None means wait forever.
     mainApp.after(3, loopy1)
 
 #Button 3
 def cancel_button():
     global cancel
     cancel = True
+    ser.close()
+    
 
 #Button 4
 def clipboard_button_callback():
@@ -144,15 +147,15 @@ button2.pack(pady=10)
 button3 = customtkinter.CTkButton(tab_2, text="Stop", command=cancel_button)
 button3.pack(pady=10)
 
+button4 = customtkinter.CTkButton(tab_2, text="Copy to clipboard", command=clipboard_button_callback)
+button4.pack(pady=10)
+
 #Tab 2 readout
 COMLable1 = customtkinter.CTkLabel(tab_2, font=("arial", 30, "bold"), text="Readout")
 COMLable1.pack(pady=1)
 
 COMLable2 = customtkinter.CTkLabel(tab_2, font=("arial", 30, "bold"), text="")
 COMLable2.pack(pady = 10)
-
-button4 = customtkinter.CTkButton(tab_2, text="Copy to clipboard", command=clipboard_button_callback)
-button4.pack(pady=10)
 
 #COMLable2 = customtkinter.CTkLabel(tab_2, text="")
 #COMLable2.pack(pady = 10)
