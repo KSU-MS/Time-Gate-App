@@ -32,18 +32,6 @@ def selectPort(choice):
     #print(selectedPort) #Debug
     return
 
-#Button 1 (IM PRETTY SURE THIS DEF CAN BE DELETED BUT I WILL LEAVE UNTIL AFTER FURTHER TESTING)
-def loop_1():
-    mainApp.counter += 1
-    print("Hello World")
-    mainApp.serial_data = ser.read(size=8)#.decode('utf-8').strip()    
-    if mainApp.serial_data:  # Only process if data is received
-        print(f"Received: {mainApp.serial_data}")
-    COMLable2.configure(text=mainApp.serial_data)
-    #COMLable2.configure(text=mainApp.counter)
-    #insert code for loop here
-    mainApp.after_id = mainApp.after(1, loop_1)
-
 #Loops
 def loopy1(): 
     try:
