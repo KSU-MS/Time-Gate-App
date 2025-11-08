@@ -50,7 +50,7 @@ def loopy1():
         if ser.is_open:
             global serial_data
             #print("Serial port opened successfully.")
-            serial_data = ser.read(size=8)#.decode('utf-8').strip()
+            serial_data = ser.read(size=8).decode('utf-8').strip()
 
             if serial_data:  # Only process if data is received
                 print(f"Received: {serial_data}")
